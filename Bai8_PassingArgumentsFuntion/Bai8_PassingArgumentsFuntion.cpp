@@ -29,6 +29,7 @@ void passByReference(int& x) {
 }
 
 // Hàm truyền theo con trỏ, truyền địa chỉ của biến
+// Hàm này có thể nhận một mảng
 void passByPointer(int* x) {
 	*x = *x + 10; // Thay đổi giá trị của x trong hàm
 }
@@ -37,6 +38,14 @@ void passByPointer(int* x) {
 void passByConstReference(const int& x) {
 	// x = x + 10; // Lỗi: không thể thay đổi giá trị của x vì nó là tham chiếu hằng
 	cout << "Giá trị của x trong hàm passByConstReference: " << x << endl; // Vẫn có thể đọc giá trị của x
+}
+
+// Hàm thay đổi giá trị của mảng truyền theo con trỏ
+void passArrayByPointer(int* arr, int size) {
+	for (int i = 0; i < size; i++) {
+		arr[i] = arr[i] + 10; // Thay đổi giá trị của mảng trong hàm
+		// *(arr + i) = *(arr + i) + 10; // Cách khác để thay đổi giá trị của mảng trong hàm
+	}
 }
 
 int main() {
@@ -53,5 +62,14 @@ int main() {
 
 	// Truyền theo tham chiếu hằng
 	passByConstReference(a); // a vẫn là 25, không bị thay đổi
+
+	// Truyền mảng theo con trỏ
+	int arr[5] = { 1, 2, 3, 4, 5 };
+	passArrayByPointer(arr, 5);
+	cout << "Giá trị của mảng sau khi truyền theo con trỏ: ";
+	for (int i = 0; i < 5; i++) {
+		cout << arr[i] << " "; // Mảng đã thay đổi thành {11, 12, 13, 14, 15}
+	}
+
 	return 0;
 }
